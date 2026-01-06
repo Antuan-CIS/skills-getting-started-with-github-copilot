@@ -4,6 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  function deleteParticipant(participantName) {
+    console.log(`Unregistering participant: ${participantName}`);
+    const participantItem = document.querySelector(`li:contains('${participantName}')`);
+    if (participantItem) {
+      participantItem.remove();
+    }
+  }
+
   // escape HTML to avoid XSS when inserting participant names
   function escapeHtml(str) {
     return String(str)
@@ -23,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Clear loading message
       activitiesList.innerHTML = "";
 
+      // Reset activity select to avoid duplicate options
+      if (activitySelect) {
+        activitySelect.innerHTML = '<option value="">-- Select an activity --</option>';
+      }
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
         const activityCard = document.createElement("div");
@@ -54,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
-        activitySelect.appendChild(option);
+        if (activitySelect) activitySelect.appendChild(option);
       });
     } catch (error) {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
@@ -83,6 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+        // Refresh activities so the new participant is visible immediately
+        fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";
