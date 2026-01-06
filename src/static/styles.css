@@ -142,3 +142,39 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+.participants-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.participants-section strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.participants-list {
+  list-style: disc inside;
+  margin: 0;
+  padding-left: 12px;
+}
+
+.participant {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  margin-bottom: 6px;
+  border: 1px solid #f0f0f0;
+  color: #444;
+  font-size: 14px;
+}
+
+/* small helper when there are no participants */
+.participants-empty {
+  font-style: italic;
+  color: #666;
+  padding: 6px 0;
+}
